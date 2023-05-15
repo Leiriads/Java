@@ -1,4 +1,11 @@
-# Java
+![Badge Completo](https://img.shields.io/static/v1?label=STATUS&message=%20COMPLETO&color=GREEN&style=for-the-badge)
+# Java MVC
+✔️ Adicionado Validação do Mysql <br>
+✔️ Adicionado Filtro por busca utiliznado Nome ou Cpf do Usuário<br>
+✔️ Refatoração<br>
+✔️ Validação de Conexão<br>
+
+# Pong Java
 
 ![Badge Completo](https://img.shields.io/static/v1?label=STATUS&message=%20COMPLETO&color=GREEN&style=for-the-badge)
 
