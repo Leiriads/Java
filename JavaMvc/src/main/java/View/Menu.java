@@ -1,7 +1,8 @@
 package View;
 
-import javax.swing.ImageIcon;
-
+import Controller.IMG;
+import javax.swing.JOptionPane;
+import jdbc.ConnectionTest;
 
 /**
  *
@@ -9,24 +10,20 @@ import javax.swing.ImageIcon;
  */
 public class Menu extends javax.swing.JFrame {
 
+    ConnectionTest testeconexao = new ConnectionTest();
+
     /**
      * Creates new form Menu
      */
     public Menu() {
-        
-        
         initComponents();
         this.setLocationRelativeTo(null);
         showIcon();
-        
-        
-        
     }
-    public void showIcon(){
-        setSize(700, 400);
-        ImageIcon icon = new ImageIcon("src/main/java/Img/ifpr.jpg");
-        icon.setImage(icon.getImage().getScaledInstance(lblimage.getWidth(),lblimage.getHeight(), 1));
-        lblimage.setIcon(icon);
+
+    public void showIcon() {
+        IMG imagem = new IMG();
+        imagem.showIcon(lblimage);
     }
 
     /**
@@ -39,16 +36,20 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCadastro = new javax.swing.JButton();
+        lblimage = new javax.swing.JLabel();
         btnListar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        lblimage = new javax.swing.JLabel();
+        BtnLogoff = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        labelid4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(153, 255, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(650, 350));
-        setSize(new java.awt.Dimension(0, 0));
+        setMinimumSize(new java.awt.Dimension(640, 520));
+        setPreferredSize(new java.awt.Dimension(640, 520));
+        setSize(getPreferredSize());
         getContentPane().setLayout(null);
 
         btnCadastro.setText("Cadastrar");
@@ -58,7 +59,11 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCadastro);
-        btnCadastro.setBounds(410, 10, 110, 30);
+        btnCadastro.setBounds(470, 160, 110, 30);
+
+        lblimage.setForeground(new java.awt.Color(153, 255, 255));
+        getContentPane().add(lblimage);
+        lblimage.setBounds(40, 150, 380, 210);
 
         btnListar.setText("Listar");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +72,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnListar);
-        btnListar.setBounds(410, 70, 110, 30);
+        btnListar.setBounds(470, 260, 110, 30);
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +81,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEditar);
-        btnEditar.setBounds(410, 40, 110, 30);
+        btnEditar.setBounds(470, 210, 110, 30);
 
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -85,34 +90,77 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSair);
-        btnSair.setBounds(410, 100, 110, 30);
-        getContentPane().add(lblimage);
-        lblimage.setBounds(10, 0, 650, 320);
+        btnSair.setBounds(470, 310, 110, 30);
+
+        BtnLogoff.setText("Deslogar");
+        BtnLogoff.setPreferredSize(new java.awt.Dimension(34, 24));
+        BtnLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLogoffActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnLogoff);
+        BtnLogoff.setBounds(470, 360, 110, 30);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        labelid4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        labelid4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelid4.setText("Menu");
+        jPanel1.add(labelid4);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 640, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        RegisterUser telaregister = new RegisterUser();
-        this.dispose();
-        telaregister.setVisible(true);
-    }//GEN-LAST:event_btnCadastroActionPerformed
-
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        JtableShowUser telaListUser = new JtableShowUser();
-        this.dispose();
-        telaListUser.setVisible(true);
-    }//GEN-LAST:event_btnListarActionPerformed
-
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        JtableEditUser telaEdit = new JtableEditUser();
-        this.dispose();
-        telaEdit.setVisible(true);
+        if (testeconexao.testandoconexao()) {
+            JtableEditUser telaEdit = new JtableEditUser();
+            this.dispose();
+            telaEdit.setVisible(true);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        try{
+            JtableShowUser telaListUser = new JtableShowUser();
+            this.dispose();
+            telaListUser.setVisible(true);
+        }catch (Exception excecao) {
+            // Lida com a exceção
+            JOptionPane.showMessageDialog(null, "O banco de dados está offline ! ");
+        }
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        /*
+        try{
+            RegisterUser telaregister = new RegisterUser();
+            this.dispose();
+            telaregister.setVisible(true);
+        } catch (Exception excecao) {
+            // Lida com a exceção
+            JOptionPane.showMessageDialog(null, "O banco de dados está offline ! ");
+        }
+        */
+        if (testeconexao.testandoconexao()) {
+            RegisterUser telaregister = new RegisterUser();
+            this.dispose();
+            telaregister.setVisible(true);
+        }
+    }//GEN-LAST:event_btnCadastroActionPerformed
+
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        System. exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void BtnLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLogoffActionPerformed
+        Start_App telalogin = new Start_App();
+         this.dispose();
+         telalogin.setVisible(true);
+    }//GEN-LAST:event_BtnLogoffActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,19 +193,20 @@ public class Menu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
-                
-                
+
             }
         });
-        
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnLogoff;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelid4;
     private javax.swing.JLabel lblimage;
     // End of variables declaration//GEN-END:variables
 }

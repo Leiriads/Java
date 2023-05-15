@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author Aluno
+/*
+ * @author Devl
  */
+
 public class Admin {
     //get /set ctrl espaco 
     
@@ -38,3 +34,5 @@ public class Admin {
     
     
 }
+
+ 

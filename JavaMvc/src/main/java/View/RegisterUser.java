@@ -1,27 +1,33 @@
 package View;
 
+import Controller.IMG;
 import Model.User;
 import dao.usuarioDAO;
 import javax.swing.JOptionPane;
 import jdbc.ConnectionTest;
 
 /**
- *
- * @author Leiria
+ * @author DevL
  */
 public class RegisterUser extends javax.swing.JFrame {
     
-     User obj = new User(); 
-     usuarioDAO dao = new usuarioDAO();
-     ConnectionTest testandoconexao = new ConnectionTest();
+     ConnectionTest testeconexao = new ConnectionTest();
+     
     /**
      * Creates new form Main
      */
+     
     public RegisterUser() {
         initComponents();
         this.setLocationRelativeTo(null);
+        showIcon();
     }
-
+    
+    public void showIcon() {
+        IMG imagem = new IMG();
+        imagem.showIcon(lblimage);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,9 +38,6 @@ public class RegisterUser extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        labelnome = new javax.swing.JLabel();
-        labelcpf = new javax.swing.JLabel();
-        labeltipousuario = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtCpf = new javax.swing.JTextField();
         cbUsuario = new javax.swing.JComboBox<>();
@@ -42,25 +45,21 @@ public class RegisterUser extends javax.swing.JFrame {
         btnNovo = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        btn_connect = new javax.swing.JButton();
+        lblimage = new javax.swing.JLabel();
+        labelid2 = new javax.swing.JLabel();
+        labelid1 = new javax.swing.JLabel();
+        labelid3 = new javax.swing.JLabel();
+        labelid4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
-
-        labelnome.setText("Nome");
-
-        labelcpf.setText("Cpf");
-
-        labeltipousuario.setText("Tipo Usuário");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(650, 520));
+        jPanel1.setPreferredSize(new java.awt.Dimension(650, 520));
 
         cbUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Visitante", "Estudante", "Professor" }));
-        cbUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbUsuarioActionPerformed(evt);
-            }
-        });
 
+        btnCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCadastrar.setText("Registrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +67,7 @@ public class RegisterUser extends javax.swing.JFrame {
             }
         });
 
+        btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +75,7 @@ public class RegisterUser extends javax.swing.JFrame {
             }
         });
 
+        btnFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +83,7 @@ public class RegisterUser extends javax.swing.JFrame {
             }
         });
 
+        btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,117 +91,127 @@ public class RegisterUser extends javax.swing.JFrame {
             }
         });
 
-        btn_connect.setText("Teste Conexão");
-        btn_connect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_connectActionPerformed(evt);
-            }
-        });
+        labelid2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelid2.setText("Nome");
+
+        labelid1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelid1.setText("Cpf");
+
+        labelid3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelid3.setText("Tipo de Usuário");
+
+        labelid4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        labelid4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelid4.setText("Cadastro de Usuário");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelid4, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelnome)
-                            .addComponent(labeltipousuario)
-                            .addComponent(labelcpf))
+                            .addComponent(btnFechar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(104, 104, 104))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(471, 471, 471)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblimage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelid2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelid3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelid1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCpf)
-                            .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_connect)
-                .addGap(32, 32, 32))
+                            .addComponent(cbUsuario, 0, 171, Short.MAX_VALUE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+                        .addGap(76, 76, 76))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar)
-                    .addComponent(btn_connect))
-                .addGap(40, 40, 40)
+                .addGap(19, 19, 19)
+                .addComponent(labelid4)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelnome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelcpf)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labeltipousuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelid2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelid1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelid3))
+                        .addGap(208, 208, 208))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblimage, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnNovo)
-                    .addComponent(btnFechar))
-                .addGap(32, 32, 32))
+                    .addComponent(btnFechar)
+                    .addComponent(btnVoltar))
+                .addGap(53, 53, 53))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void resetacampo(){
-    txtNome.setText("");
-    txtCpf.setText("");
-    cbUsuario.setSelectedIndex(0);
-}
-//------------FECHAR -------------------------
+    private void resetacampo(){
+        txtNome.setText("");
+        txtCpf.setText("");
+        cbUsuario.setSelectedIndex(0);
+    }
+
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         System. exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
-    
-//------------CADASTRAR ----------------------
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
-         if (txtNome.getText().isEmpty() || txtCpf.getText().isEmpty() ){
+
+        if (testeconexao.testandoconexao()) {        
+             if (txtNome.getText().isEmpty() || txtCpf.getText().isEmpty() ){
             JOptionPane.showMessageDialog(
-                    null, "Erro - Preencha todos os campos");
-        }else{
-              
-        User obj = new User();
-        obj.setUser(txtNome.getText(), txtCpf.getText(), cbUsuario.getItemAt(cbUsuario.getSelectedIndex()));    
-        
-         /*
-          usuario.setNome(txtNome.getText());
-          usuario.setCpf(txtCpf.getText());   
-          usuario.setTipousuario(cbUsuario.getItemAt(cbUsuario.getSelectedIndex()));
-          */
-          dao.cadastrarCliente(obj);
-          resetacampo();
-        }
-                    
+                    null, "Preencha todos os campos");
+            }else{
+            usuarioDAO dao = new usuarioDAO();    
+            User obj = new User();
+            obj.setUser(txtNome.getText(), txtCpf.getText(), cbUsuario.getItemAt(cbUsuario.getSelectedIndex()));
+            dao.cadastrarCliente(obj);
+            resetacampo();
+            }
+        }           
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-//------------NOVO ---------------------------
+
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         resetacampo();
     }//GEN-LAST:event_btnNovoActionPerformed
@@ -209,16 +221,6 @@ private void resetacampo(){
         this.dispose();
         telamenu.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
-
-    private void cbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbUsuarioActionPerformed
-
-    private void btn_connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_connectActionPerformed
-        
-        testandoconexao.testandoconexao();
-
-    }//GEN-LAST:event_btn_connectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,12 +265,13 @@ private void resetacampo(){
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton btn_connect;
     private javax.swing.JComboBox<String> cbUsuario;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelcpf;
-    private javax.swing.JLabel labelnome;
-    private javax.swing.JLabel labeltipousuario;
+    private javax.swing.JLabel labelid1;
+    private javax.swing.JLabel labelid2;
+    private javax.swing.JLabel labelid3;
+    private javax.swing.JLabel labelid4;
+    private javax.swing.JLabel lblimage;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables

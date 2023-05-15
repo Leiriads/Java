@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import jdbc.ConnectionFactory;
 import Model.User;
@@ -21,9 +20,8 @@ public class usuarioDAO {
     public void cadastrarCliente(User obj){
         try {
             //1 - criar comando sql
-            String sql = "insert into usuario (nome,cpf,tipousuario)"
-                    + "values (?,?,?)";
-            
+            String sql = "INSERT INTO usuario (nome,cpf,tipousuario)"
+                    + "VALUES (?,?,?)";
             //2 - conectar o banco de dados e organizar o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
             //stmt.setInt(1, obj.getId());
@@ -31,15 +29,12 @@ public class usuarioDAO {
             stmt.setString(2, obj.getCpf());
             //stmt.setInt(4, obj.getTipousuario());
             stmt.setString(3,obj.getTipousuario());
-            
             //3 - executar o comando sql
             stmt.execute();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
-
         }
     }
     
@@ -47,21 +42,16 @@ public class usuarioDAO {
     public void alterarCliente(User obj) {
         try {
             //1 - criar comando sql
-            String sql = "update usuario set nome=?,cpf=?,tipousuario=? where id=?";
-            
+            String sql = "UPDATE usuario SET nome=?,cpf=?,tipousuario=? where id=?";
             //2 - conectar o banco de dados e organizar o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
-
             stmt.setString(1, obj.getNome());
             stmt.setString(2, obj.getCpf());
             stmt.setString(3,obj.getTipousuario());
             stmt.setInt(4, obj.getId());
-            
-            
             //3 - executar o comando sql
             stmt.execute();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null, "Alterado com sucesso");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
@@ -69,42 +59,38 @@ public class usuarioDAO {
         }
     }
     
-    // Método excluirCliente
+    // Funcão excluir Usuário
     public void excluirCliente(User obj) {
         try {
             //1 - criar comando sql
-            String sql = "delete from usuario where id = ?";
-            
+            String sql = "DELETE FROM usuario WHERE id = ?";
             //2 - conectar o banco de dados e organizar o comando sql
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1,obj.getId());
             //3 - executar o comando sql
             stmt.execute();
             stmt.close();
-            
             JOptionPane.showMessageDialog(null, "Excluído com sucesso");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
-
         }
     }
     
-    // Método listarCliente
+    // Função listar Usuario
     public ArrayList<User> listarUsuario() {
         try {
             //1 - criar a lista
             ArrayList<User> lista = new ArrayList<>();
             
             //2 - criar sql, organizar e executar
-            String sql = "select * from usuario";
+            String sql = "SELECT * FROM usuario";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()) {
                 User obj = new User();
-                
-                obj.setUserBd(rs.getInt("id"),rs.getString("nome"), rs.getString("cpf"), rs.getString("tipousuario"));
-                
+                obj.setUserBd(rs.getInt("id"),rs.getString("nome"),
+                rs.getString("cpf"), rs.getString("tipousuario"));
                 lista.add(obj);
             }
             return lista;
@@ -113,62 +99,30 @@ public class usuarioDAO {
             return null;
         }
     }
-    /*
-    //Método buscar cliente por Nome
-    public List<Cliente> consultaClientesPorNome(String nome) {
+    // Função filtrar Usuario por Nome ou Cpf
+     public ArrayList<User> filtrarusuarios(String termoPesquisa) {
         try {
+            //1 - criar a lista
+            ArrayList<User> lista = new ArrayList<>();
             
-            // 1 - criar a lista
-            List<Cliente> lista = new ArrayList<>();
-            
-            //2 - criar o sql, organizar e executar
-            String sql = "select * from cliente where Nome like ?";
+            //2 - criar sql, organizar e executar
+           String sql = "SELECT * FROM usuario WHERE nome LIKE ? OR cpf LIKE ?";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, nome);
+            stmt.setString(1, "%" + termoPesquisa + "%");
+            stmt.setString(2, "%" + termoPesquisa + "%");
             
             ResultSet rs = stmt.executeQuery();
-            
-            while(rs.next()) {
-                Cliente obj = new Cliente();
-                
-                obj.setCliente(rs.getString("Nome"), rs.getString("Cpf"), rs.getString("Email"), rs.getString("Telefone"));
-                
+
+            while (rs.next()) {
+                User obj = new User();
+                obj.setUserBd(rs.getInt("id"), rs.getString("nome"),
+                rs.getString("cpf"), rs.getString("tipousuario"));
                 lista.add(obj);
             }
-            
             return lista;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
             return null;
         }
-    }
-    
-    //Método buscar cliente por CPF
-    public Cliente buscaClientePorCpf(String cpf) {
-        try {
-            // 1 - criar o sql, organizar e executar
-            String sql = "select * from cliente where Cpf=?";
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, cpf);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            Cliente obj = new Cliente();
-
-            
-            if(rs.next()) {
-                
-                obj.setCliente(rs.getString("Nome"), rs.getString("Cpf"), rs.getString("Email"), rs.getString("Telefone"));
-
-            }
-            
-            return obj;
-           
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro: " + e);
-            return null;
-        }
-    }
-    
-    */
+    }  
 }

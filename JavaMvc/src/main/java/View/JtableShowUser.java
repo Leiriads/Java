@@ -1,67 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
-import Model.ProdutoTableModel;
+import Controller.ListTable;
 import Model.User;
 import dao.usuarioDAO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import jdbc.ConnectionTest;
 
 /**
  *
- * @author Administrator
+ * @author Devl
  */
-public class JtableShowUser extends javax.swing.JFrame {
-    
-    ProdutoTableModel tablemodel = new ProdutoTableModel();
-    User user = new User(); 
-    User retorno,topo,retornavet;
-    User[] CopiaVet;
-    
-    
-    
 
-    private void ListarUsuario(){
-        usuarioDAO dao = new usuarioDAO();
-        ArrayList<User> lista = dao.listarUsuario();
-        //DefaultTableModel dados = (DefaultTableModel) tabelaClientes.getModel();
-        //dados.setNumRows(0);
-        UserTableModel model = new UserTableModel(lista);
+public class JtableShowUser extends javax.swing.JFrame {
+    ConnectionTest testeconexao = new ConnectionTest(); 
+    
+    private void listarusuario() {
         
-        showUser.setModel(model);
-    }
+        if (testeconexao.testandoconexao()) {
+            try{
+            ListTable listartabela = new ListTable();
+            usuarioDAO dao = new usuarioDAO();
+            ArrayList<User> lista = dao.listarUsuario();
+            listartabela.preenchertabela(lista, showUser);   
+            } catch (Exception e) {
+                    JOptionPane.showMessageDialog(
+                            null, "Erro! \n" + e);
+            }
+        }
+}
     
     /**
      * Creates new form Jtable
      */
+    
     public JtableShowUser() {
         initComponents();
         this.setLocationRelativeTo(null);
-        ListarUsuario();
-        //AntigaTabela(); 
-        //NovaTabela();
+        listarusuario();
     }
 
-    public void AntigaTabela(){
-        for (int g = 0; g <= CopiaVet.length; g++) {
-                if (CopiaVet[g] != null) {
-                    tablemodel.removeRow(CopiaVet[g]);
-                } else {
-                    break;
-                }
-            }
-    }
-    public void NovaTabela(){
-         for (int i = 0; i <= CopiaVet.length; i++) {
-                if (CopiaVet[i] != null) {
-                    tablemodel.addRow(CopiaVet[i]);
-                } else {
-                    break;
-                }
-            }
-    }
+   
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,13 +51,25 @@ public class JtableShowUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        btnVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         showUser = new javax.swing.JTable();
-        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(650, 320));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(650, 520));
         setResizable(false);
+        setSize(getPreferredSize());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         showUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,39 +79,43 @@ public class JtableShowUser extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nome", "Cpf", "Tipo Usuário"
             }
         ));
         jScrollPane1.setViewportView(showUser);
 
-        btnVoltar.setText("Voltar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnVoltar)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVoltar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -173,6 +168,7 @@ public class JtableShowUser extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable showUser;
     // End of variables declaration//GEN-END:variables

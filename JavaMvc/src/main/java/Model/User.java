@@ -1,8 +1,8 @@
 package Model;
-/**
- *
- * @author Leiria
+/*
+ * @author DevL
  */
+
 public class User {
     private int id;
     private String nome;
