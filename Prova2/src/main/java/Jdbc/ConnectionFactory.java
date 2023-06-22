@@ -20,3 +20,27 @@ public class ConnectionFactory {
         }
     }
 }
+
+/*
+CREATE TABLE `prova` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `disciplina` varchar(255) DEFAULT NULL,
+  `aluno` varchar(255) DEFAULT NULL,
+  `professor` varchar(255) DEFAULT NULL,
+  `nota` float DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `questao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prova_id` int(11) DEFAULT NULL,
+  `pergunta` varchar(255) DEFAULT NULL,
+  `resposta_correta` char(1) DEFAULT NULL,
+  `resposta_aluno` char(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `prova_id` (`prova_id`),
+  CONSTRAINT `questao_ibfk_1` FOREIGN KEY (`prova_id`) REFERENCES `prova` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+*/
